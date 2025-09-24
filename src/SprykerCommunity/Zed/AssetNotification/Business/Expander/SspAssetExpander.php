@@ -33,7 +33,8 @@ class SspAssetExpander
             $assetNotificationCollection = $this->assetNotificationRepository->getAssetNotificationsByAsset($sspAssetTransfer);
             foreach ($assetNotificationCollection as $assetNotificationCollectionItem) {
                 $assetNotificationTransfer = (new SspAssetNotificationTransfer())
-                    ->fromArray($assetNotificationCollectionItem->toArray(), true);
+                    ->fromArray($assetNotificationCollectionItem->toArray(), true)
+                    ->setInterval($assetNotificationCollectionItem->getNotificationInterval());
 
                 $sspAssetTransfer->addSspAssetNotification($assetNotificationTransfer);
             }
