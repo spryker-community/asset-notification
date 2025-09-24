@@ -1,6 +1,6 @@
-# SprykerCommunity Dummy Module Integration Guide
+# SprykerCommunity SSP AssetNotification Integration Guide
 
-This README provides step-by-step instructions to integrate the SprykerCommunity Dummy Module into your Spryker B2B Demo Shop.
+This README provides step-by-step instructions to integrate the SprykerCommunity AssetNotification module into your Spryker B2B Demo Shop.
 
 ## Prerequisites
 
