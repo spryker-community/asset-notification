@@ -1,0 +1,12 @@
+<transfers xmlns="spryker:transfer-01" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+    <transfer name="SspAsset" strict="true">
+        <property name="sspAssetNotifications" type="SspAssetNotification[]" singular="sspAssetNotification"/>
+    </transfer>
+
+    <transfer name="SspAssetNotification" strict="true">
+        <property name="idSspAssetNotification" type="int"/>
+        <property name="fkSspAsset" type="int"/>
+        <property name="name" type="string"/>
+        <property name="interval" type="string"/>
+    </transfer>
+</transfers>
