@@ -144,3 +144,96 @@ With `ls -la node_modules` you should see that we installed the node modules `du
 
 After successful installation, you should be able to access the test module at:
 http://backoffice.eu.spryker.local/dummy-module
+
+---
+
+## AssetNotification Module
+
+The AssetNotification module is a SprykerCommunity extension that provides asset maintenance notification functionality for the Self-Service Portal (SSP) in Spryker B2B Demo Shop. This module allows users to set up maintenance notifications for their assets with configurable intervals.
+
+### Features
+
+- **Asset Maintenance Notifications**: Create and manage maintenance notifications for SSP assets
+- **Configurable Intervals**: Set custom service intervals for asset maintenance
+- **Integration with SSP**: Seamlessly integrates with the existing Self-Service Portal asset management
+- **Frontend Integration**: Provides frontend components for displaying asset maintenance information
+- **Database Persistence**: Stores notification data with proper foreign key relationships to assets
+
+### Integration Points
+
+- Integrates with the Self-Service Portal asset management system
+- Uses Spryker's standard transfer object system
+- Follows Spryker's module architecture patterns
+- Provides frontend templates for asset maintenance display
+
+### Required Spryker Overrides
+
+To make the AssetNotification module work, you need to override two classes in your project:
+
+#### 1. SspAssetTabs Override
+
+Create `src/Pyz/Zed/SelfServicePortal/Communication/Asset/Tabs/SspAssetTabs.php`:
+
+```php
+<?php
+
+namespace Pyz\Zed\SelfServicePortal\Communication\Asset\Tabs;
+
+use Generated\Shared\Transfer\TabItemTransfer;
+use SprykerFeature\Zed\SelfServicePortal\Communication\Asset\Tabs\SspAssetTabs as SprykerSspAssetTabs;
+use Generated\Shared\Transfer\TabsViewTransfer;
+
+class SspAssetTabs extends SprykerSspAssetTabs
+{
+    protected function build(TabsViewTransfer $tabsViewTransfer): TabsViewTransfer
+    {
+        $this->addCompaniesTab($tabsViewTransfer);
+        $this->addSspInquiriesTab($tabsViewTransfer);
+        $this->addSspServicesTab($tabsViewTransfer);
+        $this->addAttachedFilesTab($tabsViewTransfer);
+        $this->addNotificationTab($tabsViewTransfer);
+
+        return $tabsViewTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\TabsViewTransfer $tabsViewTransfer
+     *
+     * @return $this
+     */
+    protected function addNotificationTab(TabsViewTransfer $tabsViewTransfer)
+    {
+        $tabItemTransfer = (new TabItemTransfer())
+            ->setName('notification')
+            ->setTitle('Notification')
+            ->setTemplate('@AssetNotification/_partials/_tabs/tab-notification.twig');
+
+        $tabsViewTransfer->addTab($tabItemTransfer);
+
+        return $this;
+    }
+}
+```
+
+#### 2. SelfServicePortalCommunicationFactory Override
+
+Create `src/Pyz/Zed/SelfServicePortal/Communication/SelfServicePortalCommunicationFactory.php`:
+
+```php
+<?php
+
+namespace Pyz\Zed\SelfServicePortal\Communication;
+
+use Pyz\Zed\SelfServicePortal\Communication\Asset\Tabs\SspAssetTabs;
+use SprykerFeature\Zed\SelfServicePortal\Communication\SelfServicePortalCommunicationFactory as SprykerSelfServicePortalCommunicationFactory;
+
+class SelfServicePortalCommunicationFactory extends SprykerSelfServicePortalCommunicationFactory
+{
+    public function createSspAssetTabs(): SspAssetTabs
+    {
+        return new SspAssetTabs();
+    }
+}
+```
+
+These overrides add a "Notification" tab to the SSP asset management interface and ensure the custom tab implementation is used.
