@@ -4,7 +4,7 @@
     <table name="spy_ssp_asset_notification">
         <column name="id_asset_notification" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
         <column name="name" type="VARCHAR" size="255" required="true"/>
-        <column name="interval" type="VARCHAR" size="255" required="true"/>
+        <column name="notification_interval" type="VARCHAR" size="255" required="true"/>
         <column name="fk_ssp_asset" required="true" type="INTEGER"/>
 
         <foreign-key name="spy_ssp_asset_notification-fk_asset" foreignTable="spy_ssp_asset" phpName="SspAsset" refPhpName="SspAsset">
