@@ -1,6 +1,6 @@
 <?php
 
-namespace SprykerCommunity\Zed\DummyModule\Communication\Controller;
+namespace SprykerCommunity\Zed\AssetNotification\Communication\Controller;
 
 use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
